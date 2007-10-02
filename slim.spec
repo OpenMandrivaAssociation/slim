@@ -21,6 +21,7 @@ BuildRequires:	gettext
 BuildRequires:	pam-devel
 Requires:	xterm
 Requires:	pam >= 0.80
+Requires:	mandriva-theme
 BuildRoot:	%{_tmppath}/%{name}-%{version}--buildroot
 
 %description
@@ -55,6 +56,10 @@ rm -rf %{buildroot}
 
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d
 install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}.pam
+
+# (tpg) use background from mandriva-theme
+rm -f %{buildroot}%{_datadir}/slim/themes/default/background.jpg
+ln -s ../../../mdk/backgrounds/default.png %{buildroot}%{_datadir}/slim/themes/default/background.jpg
 
 %clean
 rm -rf %{buildroot}
