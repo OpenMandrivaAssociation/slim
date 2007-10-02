@@ -63,6 +63,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %doc COPYING ChangeLog README THEMES TODO
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}.pam
+%config(noreplace) %{_sysconfdir}/X11/slim/%{name}.conf
 %dir %{_datadir}/slim
 %{_bindir}/slim*
 %{_datadir}/slim/themes/
