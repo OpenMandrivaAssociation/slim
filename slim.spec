@@ -6,6 +6,7 @@ Group:		System/X11
 License:	GPL
 URL:		http://slim.berlios.de
 Source0:	http://download.berlios.de/slim/%{name}-%{version}.tar.bz2
+Source1:	%{name}.pam
 BuildRequires:	libxmu-devel
 BuildRequires:	libxft-devel
 BuildRequires:	libxrender-devel
@@ -48,12 +49,16 @@ Features included:
 rm -rf %{buildroot}
 %makeinstall_std
 
+mkdir -p %{buildroot}%{_sysconfdir}/pam.d
+install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}.pam
+
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
 %doc COPYING ChangeLog README THEMES TODO
+%config(noreplace) %{_sysconfdir}/pam.d/%{name}.pam
 %dir %{_datadir}/slim
 %{_bindir}/slim*
 %{_datadir}/slim/themes/
