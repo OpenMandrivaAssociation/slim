@@ -8,6 +8,7 @@ URL:		http://slim.berlios.de
 Source0:	http://download.berlios.de/slim/%{name}-%{version}.tar.bz2
 Source1:	%{name}.pam
 Patch0:		%{name}-1.3.0-makefile.patch
+Patch1:		%{name}-1.3.0-config.patch
 BuildRequires:	libxmu-devel
 BuildRequires:	libxft-devel
 BuildRequires:	libxrender-devel
@@ -43,6 +44,7 @@ Features included:
 %prep
 %setup -q
 %patch0 -p1 -b .makefile
+%patch1 -p1 -b .config
 
 %build
 %make USE_PAM=1
