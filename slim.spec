@@ -1,12 +1,13 @@
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		System/X11
-License:	GPL
+License:	GPLv2+
 URL:		http://slim.berlios.de
 Source0:	http://download.berlios.de/slim/%{name}-%{version}.tar.bz2
 Source1:	%{name}.pam
+Source2:	25%{name}.conf
 Patch0:		%{name}-1.3.0-makefile.patch
 Patch1:		%{name}-1.3.0-config.patch
 BuildRequires:	libxmu-devel
@@ -55,7 +56,10 @@ rm -rf %{buildroot}
 %makeinstall_std
 
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d
-install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}.pam
+install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}
+
+mkdir -p %{buildroot}%{_sysconfdir}/X11/dm.d
+install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/X11/dm.d/25%{name}.conf
 
 # (tpg) use background from mandriva-theme
 rm -f %{buildroot}%{_datadir}/slim/themes/default/background.jpg
@@ -67,8 +71,9 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 %doc COPYING ChangeLog README THEMES TODO
-%config(noreplace) %{_sysconfdir}/pam.d/%{name}.pam
+%config(noreplace) %{_sysconfdir}/pam.d/%{name}
 %config(noreplace) %{_sysconfdir}/X11/slim/%{name}.conf
+%config(noreplace) %{_sysconfdir}/X11/dm.d/25%{name}.conf
 %dir %{_datadir}/slim
 %{_bindir}/slim*
 %{_datadir}/slim/themes/
