@@ -10,6 +10,7 @@ Source1:	%{name}.pam
 Source2:	25%{name}.conf
 Patch0:		%{name}-1.3.0-makefile.patch
 Patch1:		%{name}-1.3.0-config.patch
+Patch2:		%{name}-1.3.0-libgen.patch
 BuildRequires:	libxmu-devel
 BuildRequires:	libxft-devel
 BuildRequires:	libxrender-devel
@@ -47,6 +48,7 @@ Features included:
 %setup -q
 %patch0 -p1 -b .makefile
 %patch1 -p1 -b .config
+%patch2 -p1 -b .libgen
 
 %build
 %make USE_PAM=1
