@@ -24,7 +24,6 @@ BuildRequires:	pam-devel
 Requires:	xterm
 Requires:	pam >= 0.80
 Requires:	mandriva-theme
-BuildRoot:	%{_tmppath}/%{name}-%{version}--buildroot
 
 %description
 SLiM (Simple Login Manager) is a Desktop-independent graphical 
