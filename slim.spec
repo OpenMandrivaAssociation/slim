@@ -1,7 +1,7 @@
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.0
-Release:	%mkrel 4
+Release:	%mkrel 5
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -61,7 +61,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/pam.d
 install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}
 
 mkdir -p %{buildroot}%{_sysconfdir}/X11/dm.d
-install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/X11/dm.d/25%{name}.conf
+install -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/X11/dm.d/25%{name}.conf
 
 # (tpg) use background from mandriva-theme
 rm -f %{buildroot}%{_datadir}/slim/themes/default/background.jpg
