@@ -60,8 +60,8 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d
 install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}
 
-mkdir -p %{buildroot}%{_sysconfdir}/X11/dm.d
-install -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/X11/dm.d/25%{name}.conf
+mkdir -p %{buildroot}%{_datadir}/X11/dm.d
+install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/X11/dm.d/25%{name}.conf
 
 # (tpg) use background from mandriva-theme
 rm -f %{buildroot}%{_datadir}/slim/themes/default/background.jpg
@@ -75,7 +75,7 @@ rm -rf %{buildroot}
 %doc ChangeLog README THEMES TODO
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 %config(noreplace) %{_sysconfdir}/X11/slim/%{name}.conf
-%config(noreplace) %{_sysconfdir}/X11/dm.d/25%{name}.conf
+%config(noreplace) %{_datadir}/X11/dm.d/25%{name}.conf
 %dir %{_datadir}/slim
 %{_bindir}/slim*
 %{_datadir}/slim/themes/
