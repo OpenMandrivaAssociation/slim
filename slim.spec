@@ -11,6 +11,7 @@ Source2:	25%{name}.conf
 Patch0:		%{name}-1.3.0-makefile.patch
 Patch1:		%{name}-1.3.0-config.patch
 Patch2:		%{name}-1.3.0-libgen.patch
+Patch3:		%{name}-1.3.0-gcc43.patch
 BuildRequires:	libxmu-devel
 BuildRequires:	libxft-devel
 BuildRequires:	libxrender-devel
@@ -49,9 +50,10 @@ Features included:
 %patch0 -p1 -b .makefile
 %patch1 -p1 -b .config
 %patch2 -p1 -b .libgen
+%patch3 -p1 -b .gcc43
 
 %build
-%make USE_PAM=1
+%make OPTFLAGS="%{optflags}" USE_PAM=1
 
 %install
 rm -rf %{buildroot}
