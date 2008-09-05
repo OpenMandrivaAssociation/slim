@@ -12,6 +12,7 @@ Patch0:		%{name}-1.3.0-makefile.patch
 Patch1:		%{name}-1.3.0-config.patch
 Patch2:		%{name}-1.3.0-libgen.patch
 Patch3:		%{name}-1.3.0-gcc43.patch
+Patch4:		%{name}-1.3.0-autologin.patch
 BuildRequires:	libxmu-devel
 BuildRequires:	libxft-devel
 BuildRequires:	libxrender-devel
@@ -51,6 +52,7 @@ Features included:
 %patch1 -p1 -b .config
 %patch2 -p1 -b .libgen
 %patch3 -p1 -b .gcc43
+%patch4 -p1 -b .autologin
 
 %build
 %make OPTFLAGS="%{optflags}" USE_PAM=1
