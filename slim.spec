@@ -1,7 +1,7 @@
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -23,6 +23,7 @@ BuildRequires:	gettext
 BuildRequires:	pam-devel
 Requires:	pam >= 0.80
 Requires:	mandriva-theme
+Provides:	dm
 BuildRoot:	%{_tmppath}/%{name}-%{version}--buildroot
 
 %description
@@ -42,7 +43,7 @@ Features included:
 * Can load predefined user at startup
 * Configurable welcome / shutdown messages
 * Random theme selection
-			     
+
 %prep
 %setup -q
 %patch0 -p1 -b .makefile
