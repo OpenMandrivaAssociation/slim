@@ -11,6 +11,7 @@ Source2:	25%{name}.conf
 Patch0:		%{name}-1.3.1-makefile.patch
 Patch1:		%{name}-1.3.1-config.patch
 Patch2:		%{name}-1.3.0-libgen.patch
+Patch3:		slim-1.3.1-gcc4.4.patch
 BuildRequires:	libxmu-devel
 BuildRequires:	libxft-devel
 BuildRequires:	libxrender-devel
@@ -49,6 +50,7 @@ Features included:
 %patch0 -p1 -b .makefile
 %patch1 -p1 -b .config
 %patch2 -p1 -b .libgen
+%patch3 -p0 -b .gcc44
 
 %build
 %make OPT="%{optflags}" USE_PAM=1
