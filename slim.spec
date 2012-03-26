@@ -1,6 +1,6 @@
 Summary:	Simple login manager
 Name:		slim
-Version:	1.3.2
+Version:	1.3.3
 Release:	%mkrel 1
 Group:		System/X11
 License:	GPLv2+
@@ -8,19 +8,23 @@ URL:		http://slim.berlios.de
 Source0:	http://download.berlios.de/slim/%{name}-%{version}.tar.bz2
 Source1:	%{name}.pam
 Source2:	25%{name}.conf
-Patch0:		%{name}-1.3.2-makefile.patch
-Patch1:		%{name}-1.3.2-config.patch
-Patch2:		%{name}-1.3.0-libgen.patch
+Source3:	slim.logrotate
+Patch1:		%{name}-1.3.3-config.patch
+Patch3:		15287-fix-pam-authentication-with-pam_unix2.patch
+Patch4:		405579-fix-numlock.patch
 BuildRequires:	libxmu-devel
 BuildRequires:	libxft-devel
 BuildRequires:	libxrender-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libjpeg-devel
-BuildRequires:	freetype-devel
-BuildRequires:	fontconfig-devel
+BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(fontconfig)
 BuildRequires:	pkgconfig
 BuildRequires:	gettext
 BuildRequires:	pam-devel
+BuildRequires:	pkgconfig(libpng15) >= 1.5
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	consolekit-devel
 Requires:	pam >= 0.80
 Requires:	mandriva-theme
 Provides:	dm
@@ -46,16 +50,22 @@ Features included:
 
 %prep
 %setup -q
-%patch0 -p1 -b .makefile
+
 %patch1 -p1 -b .config
-%patch2 -p1 -b .libgen
+%patch3 -p1 -b .ck
+%patch4 -p0 -b .numlock
 
 %build
-%setup_compile_flags
-%make USE_PAM=1
+%cmake \
+    -DUSE_PAM=yes \
+    -DUSE_CONSOLEKIT=yes
+
+%make
 
 %install
 rm -rf %{buildroot}
+
+pushd build
 %makeinstall_std
 
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d
@@ -64,20 +74,26 @@ install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}
 mkdir -p %{buildroot}%{_datadir}/X11/dm.d
 install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/X11/dm.d/25%{name}.conf
 
+mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
+install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
+
 # (tpg) use background from mandriva-theme
 rm -f %{buildroot}%{_datadir}/slim/themes/default/background.jpg
 ln -s ../../../mdk/backgrounds/default.jpg %{buildroot}%{_datadir}/slim/themes/default/background.jpg
+
+popd
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root,-)
+%defattr(-,root,root)
 %doc ChangeLog README THEMES TODO
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
-%config(noreplace) %{_sysconfdir}/X11/slim/%{name}.conf
+%config(noreplace) %{_sysconfdir}/%{name}.conf
 %config(noreplace) %{_datadir}/X11/dm.d/25%{name}.conf
 %dir %{_datadir}/slim
+%{_sysconfdir}/logrotate.d/%{name}
 %{_bindir}/slim*
 %{_datadir}/slim/themes/
 %{_mandir}/man1/*
