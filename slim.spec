@@ -12,6 +12,7 @@ Source3:	slim.logrotate
 Patch1:		%{name}-1.3.3-config.patch
 Patch3:		15287-fix-pam-authentication-with-pam_unix2.patch
 Patch4:		405579-fix-numlock.patch
+BuildRequires:	cmake
 BuildRequires:	libxmu-devel
 BuildRequires:	libxft-devel
 BuildRequires:	libxrender-devel
