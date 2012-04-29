@@ -1,7 +1,7 @@
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.3
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -40,7 +40,7 @@ through themes and an option file; is suitable for machines on which
 remote login functionalities are not needed.
 
 Features included:
- 
+
 * PNG and XFT support for alpha transparency and antialiased fonts
 * External themes support
 * Configurable runtime options: X server, login / shutdown / reboot commands
