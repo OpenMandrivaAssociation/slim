@@ -60,6 +60,7 @@ Features included:
     -DUSE_CONSOLEKIT=yes
 
 %make
+LIBS='-lXmu'
 
 %install
 rm -rf %{buildroot}
