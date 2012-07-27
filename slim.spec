@@ -5,7 +5,7 @@ Release:	%mkrel 1
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
-Source0:	http://download.berlios.de/slim/%{name}-%{version}.tar.bz2
+Source0:	http://download.berlios.de/slim/%{name}-%{version}.tar.gz
 Source1:	%{name}.pam
 Source2:	25%{name}.conf
 Source3:	slim.logrotate
