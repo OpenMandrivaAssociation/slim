@@ -59,8 +59,7 @@ Features included:
     -DUSE_PAM=yes \
     -DUSE_CONSOLEKIT=yes
 
-%make
-LIBS='-lXmu'
+%make LIBS='-lXmu'
 
 %install
 rm -rf %{buildroot}
