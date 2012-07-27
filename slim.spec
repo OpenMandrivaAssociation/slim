@@ -1,7 +1,7 @@
 Summary:	Simple login manager
 Name:		slim
-Version:	1.3.3
-Release:	%mkrel 2
+Version:	1.3.4
+Release:	%mkrel 1
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -10,8 +10,7 @@ Source1:	%{name}.pam
 Source2:	25%{name}.conf
 Source3:	slim.logrotate
 Patch1:		%{name}-1.3.3-config.patch
-Patch3:		15287-fix-pam-authentication-with-pam_unix2.patch
-Patch4:		405579-fix-numlock.patch
+Patch5:		slim-1.3.4-libpng.patch
 BuildRequires:	cmake
 BuildRequires:	libxmu-devel
 BuildRequires:	libxft-devel
@@ -53,8 +52,7 @@ Features included:
 %setup -q
 
 %patch1 -p1 -b .config
-%patch3 -p1 -b .ck
-%patch4 -p0 -b .numlock
+%patch5 -p1 -b .libpng
 
 %build
 %cmake \
