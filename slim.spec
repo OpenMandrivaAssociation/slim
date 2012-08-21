@@ -1,7 +1,7 @@
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.4
-Release:	%mkrel 1
+Release:	1
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -11,6 +11,8 @@ Source2:	25%{name}.conf
 Source3:	slim.logrotate
 Patch1:		%{name}-1.3.3-config.patch
 Patch5:		slim-1.3.4-libpng.patch
+Patch6:		slim-1.3.4-session-name.patch
+Patch7:		slim-1.3.4-link-against-Xmu.patch
 BuildRequires:	cmake
 BuildRequires:	libxmu-devel
 BuildRequires:	libxft-devel
@@ -28,12 +30,11 @@ BuildRequires:	consolekit-devel
 Requires:	pam >= 0.80
 Requires:	mandriva-theme
 Provides:	dm
-BuildRoot:	%{_tmppath}/%{name}-%{version}--buildroot
 
 %description
 SLiM (Simple Login Manager) is a Desktop-independent graphical 
 login manager for X11.
- 
+
 It aims to be light and simple, although completely configurable 
 through themes and an option file; is suitable for machines on which 
 remote login functionalities are not needed.
@@ -53,17 +54,18 @@ Features included:
 
 %patch1 -p1 -b .config
 %patch5 -p1 -b .libpng
+%patch6 -p1 -b .session
+%patch7 -p1 -b .xmu
 
 %build
+
 %cmake \
     -DUSE_PAM=yes \
+    -DCMAKE_SKIP_RPATH=ON \
+    -DCMAKE_BUILD_TYPE=Release \
     -DUSE_CONSOLEKIT=yes
 
-%make LIBS='-lXmu'
-
 %install
-rm -rf %{buildroot}
-
 pushd build
 %makeinstall_std
 
@@ -82,11 +84,7 @@ ln -s ../../../mdk/backgrounds/default.jpg %{buildroot}%{_datadir}/slim/themes/d
 
 popd
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc ChangeLog README THEMES TODO
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}.conf
