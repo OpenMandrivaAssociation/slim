@@ -1,7 +1,7 @@
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.4
-Release:	1
+Release:	2
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -9,9 +9,9 @@ Source0:	http://download.berlios.de/slim/%{name}-%{version}.tar.gz
 Source1:	%{name}.pam
 Source2:	25%{name}.conf
 Source3:	slim.logrotate
+Source4:	slim.service
 Patch1:		%{name}-1.3.3-config.patch
 Patch5:		slim-1.3.4-libpng.patch
-Patch6:		slim-1.3.4-session-name.patch
 Patch7:		slim-1.3.4-link-against-Xmu.patch
 BuildRequires:	cmake
 BuildRequires:	libxmu-devel
@@ -27,6 +27,7 @@ BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(libpng15) >= 1.5
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	consolekit-devel
+BuildRequires:	systemd
 Requires:	pam >= 0.80
 Requires:	mandriva-theme
 Provides:	dm
@@ -54,7 +55,6 @@ Features included:
 
 %patch1 -p1 -b .config
 %patch5 -p1 -b .libpng
-%patch6 -p1 -b .session
 %patch7 -p1 -b .xmu
 
 %build
@@ -82,6 +82,9 @@ install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 rm -f %{buildroot}%{_datadir}/slim/themes/default/background.jpg
 ln -s ../../../mdk/backgrounds/default.jpg %{buildroot}%{_datadir}/slim/themes/default/background.jpg
 
+mkdir -p %{buildroot}%{_unitdir}
+install -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/slim.service
+
 popd
 
 %files
@@ -90,6 +93,7 @@ popd
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 %config(noreplace) %{_datadir}/X11/dm.d/25%{name}.conf
 %dir %{_datadir}/slim
+%{_unitdir}/slim.service
 %{_sysconfdir}/logrotate.d/%{name}
 %{_bindir}/slim*
 %{_datadir}/slim/themes/
