@@ -1,7 +1,7 @@
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.4
-Release:	3
+Release:	4
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
