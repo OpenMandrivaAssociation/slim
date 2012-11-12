@@ -1,0 +1,6 @@
+sources:
+  "25slim.conf:"	60cf739bee79c42a9b42cdf2cd237266603a0afa
+  "slim-1.3.4.tar.gz:"	70f1383bc8754b6b149c7b69d98ad0851c05081c
+  "slim.logrotate:"	d2bc9202862f0d33bb902eba3aa8fefe0797d7a3
+  "slim.pam:"	4ce9f19f78360d004b180934aeb319c75325f92c
+  "slim.service:"	e1d45b72d76e7e0d620f645906e822aa51f46e15

@@ -1,0 +1,5 @@
+25slim.conf
+slim-1.3.4.tar.gz
+slim.logrotate
+slim.pam
+slim.service
