@@ -1,0 +1,15 @@
+[Unit]
+Description=SLiM Simple Login Manager
+Documentation=man:slim(1)
+Conflicts=getty@tty7.service
+Requires=acpid.service local-fs.target dbus.service
+After=systemd-user-sessions.service getty@tty7.service plymouth-quit.service
+
+[Service]
+ExecStart=/usr/bin/slim -nodaemon
+Restart=always
+RestartSec=5
+IgnoreSIGPIPE=no
+
+[Install]
+Alias=display-manager.service
