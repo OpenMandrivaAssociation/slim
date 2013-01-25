@@ -1,7 +1,7 @@
 Summary:	Simple login manager
 Name:		slim
-Version:	1.3.4
-Release:	4
+Version:	1.3.5
+Release:	1
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -9,7 +9,7 @@ Source0:	http://download.berlios.de/slim/%{name}-%{version}.tar.gz
 Source1:	%{name}.pam
 Source2:	25%{name}.conf
 Source3:	slim.logrotate
-Source4:	slim.service
+Source5:	slim-tmpfiles.conf
 Patch1:		%{name}-1.3.3-config.patch
 Patch5:		slim-1.3.4-libpng.patch
 Patch7:		slim-1.3.4-link-against-Xmu.patch
@@ -26,7 +26,9 @@ BuildRequires:	gettext
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(libpng15) >= 1.5
 BuildRequires:	pkgconfig(zlib)
+%if %mdvver < 201300
 BuildRequires:	consolekit-devel
+%endif
 BuildRequires:	systemd
 Requires:	pam >= 0.80
 Requires:	mandriva-theme
@@ -63,7 +65,11 @@ Features included:
     -DUSE_PAM=yes \
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_BUILD_TYPE=Release \
+%if %mdvver >= 201300
+    -DUSE_CONSOLEKIT=no
+%else
     -DUSE_CONSOLEKIT=yes
+%endif
 
 %install
 pushd build
@@ -82,10 +88,12 @@ install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 rm -f %{buildroot}%{_datadir}/slim/themes/default/background.jpg
 ln -s ../../../mdk/backgrounds/default.jpg %{buildroot}%{_datadir}/slim/themes/default/background.jpg
 
-mkdir -p %{buildroot}%{_unitdir}
-install -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/slim.service
+install -p -D -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/tmpfiles.d/%{name}.conf
 
 popd
+
+%post
+systemd-tmpfiles --create slim.conf
 
 %files
 %doc ChangeLog README THEMES TODO
