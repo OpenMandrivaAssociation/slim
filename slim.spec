@@ -11,7 +11,6 @@ Source2:	25%{name}.conf
 Source3:	slim.logrotate
 Source5:	slim-tmpfiles.conf
 Patch1:		%{name}-1.3.3-config.patch
-Patch5:		slim-1.3.4-libpng.patch
 Patch7:		slim-1.3.4-link-against-Xmu.patch
 BuildRequires:	cmake
 BuildRequires:	libxmu-devel
@@ -56,7 +55,6 @@ Features included:
 %setup -q
 
 %patch1 -p1 -b .config
-%patch5 -p1 -b .libpng
 %patch7 -p1 -b .xmu
 
 %build
