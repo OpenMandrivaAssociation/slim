@@ -103,6 +103,7 @@ systemd-tmpfiles --create slim.conf
 %dir %{_datadir}/slim
 %{_unitdir}/slim.service
 %{_sysconfdir}/logrotate.d/%{name}
+%{_sysconfdir}/tmpfiles.d/slim.conf
 %{_bindir}/slim*
 %{_datadir}/slim/themes/
 %{_mandir}/man1/*
