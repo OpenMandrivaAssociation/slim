@@ -58,6 +58,8 @@ Features included:
 %patch7 -p1 -b .xmu
 
 %build
+# fix installation path of slim.service
+sed -i 's|usr/lib/systemd/system|/&|' CMakeLists.txt
 
 %cmake \
     -DUSE_PAM=yes \
