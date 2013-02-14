@@ -14,14 +14,12 @@ Patch1:		%{name}-1.3.3-config.patch
 Patch7:		slim-1.3.4-link-against-Xmu.patch
 Patch8:		slim-1.3.5-fix-service-file.patch
 BuildRequires:	cmake
-BuildRequires:	libxmu-devel
-BuildRequires:	libxft-devel
-BuildRequires:	libxrender-devel
-BuildRequires:	libpng-devel
-BuildRequires:	libjpeg-devel
+BuildRequires:	pkgconfig(xmu)
+BuildRequires:	pkgconfig(xft)
+BuildRequires:	pkgconfig(xrender)
+BuildRequires:	jpeg-devel
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(fontconfig)
-BuildRequires:	pkgconfig
 BuildRequires:	gettext
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(libpng15) >= 1.5
