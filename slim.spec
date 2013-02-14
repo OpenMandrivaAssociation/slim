@@ -1,7 +1,7 @@
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.5
-Release:	1
+Release:	2
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -12,6 +12,7 @@ Source3:	slim.logrotate
 Source5:	slim-tmpfiles.conf
 Patch1:		%{name}-1.3.3-config.patch
 Patch7:		slim-1.3.4-link-against-Xmu.patch
+Patch8:		slim-1.3.5-fix-service-file.patch
 BuildRequires:	cmake
 BuildRequires:	libxmu-devel
 BuildRequires:	libxft-devel
@@ -53,9 +54,7 @@ Features included:
 
 %prep
 %setup -q
-
-%patch1 -p1 -b .config
-%patch7 -p1 -b .xmu
+%apply_patches
 
 %build
 # fix installation path of slim.service
