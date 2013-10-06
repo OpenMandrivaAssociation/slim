@@ -13,24 +13,25 @@ Source5:	slim-tmpfiles.conf
 Patch1:		%{name}-1.3.3-config.patch
 Patch7:		slim-1.3.6-fix-CMakeLists.patch
 Patch8:		slim-1.3.5-fix-service-file.patch
-#BuildRequires:	cmake
-#BuildRequires:	pkgconfig(xmu)
-#BuildRequires:	pkgconfig(xft)
-#BuildRequires:	pkgconfig(xrender)
-#BuildRequires:	jpeg-devel
-#BuildRequires:	pkgconfig(freetype2)
-#BuildRequires:	pkgconfig(fontconfig)
-#BuildRequires:	gettext
-#BuildRequires:	pam-devel
-#BuildRequires:	pkgconfig(libpng15) >= 1.5
-#BuildRequires:	pkgconfig(zlib)
+BuildRequires:	cmake
+BuildRequires:	pkgconfig(xmu)
+BuildRequires:	pkgconfig(xft)
+BuildRequires:	pkgconfig(xrender)
+BuildRequires:	jpeg-devel
+BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(fontconfig)
+BuildRequires:	gettext
+BuildRequires:	pam-devel
+BuildRequires:	pkgconfig(libpng15) >= 1.5
+BuildRequires:	pkgconfig(zlib)
 %if %mdvver < 201300
-#BuildRequires:	consolekit-devel
+BuildRequires:	consolekit-devel
 %endif
-#BuildRequires:	pkgconfig(libsystemd-login)
+BuildRequires:	pkgconfig(libsystemd-login)
 Requires:	pam >= 0.80
 Requires:	distro-theme
 Provides:	dm
+Requires(post):	rpm-helper
 
 %description
 SLiM (Simple Login Manager) is a Desktop-independent graphical 
