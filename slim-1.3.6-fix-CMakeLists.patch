@@ -1,0 +1,27 @@
+--- slim-1.3.6/CMakeLists.txt	2013-10-01 22:38:05.000000000 +0000
++++ slim-1.3.6/CMakeLists.txt.tpg	2013-10-06 12:00:34.614653441 +0000
+@@ -119,6 +119,7 @@
+ 	if(PAM_FOUND)
+ 		message("\tPAM Found")
+ 		set(SLIM_DEFINITIONS ${SLIM_DEFINITIONS} "-DUSE_PAM")
++		target_link_libraries(libslim ${PAM_LIBRARY})
+ 		target_link_libraries(${PROJECT_NAME} ${PAM_LIBRARY})
+ 		target_link_libraries(slimlock ${PAM_LIBRARY})
+ 		include_directories(${PAM_INCLUDE_DIR})
+@@ -161,6 +162,7 @@
+ find_library(RT_LIB rt)
+ find_library(CRYPTO_LIB crypt)
+ find_package(Threads)
++find_library(X11_Xmu_LIB Xmu)
+ 
+ add_definitions(${SLIM_DEFINITIONS})
+ 
+@@ -178,6 +180,8 @@
+ )
+ 
+ target_link_libraries(libslim
++    ${X11_Xft_LIB}
++    ${X11_Xrandr_LIB}
+     ${JPEG_LIBRARIES}
+ 	${PNG_LIBRARIES}
+ )
