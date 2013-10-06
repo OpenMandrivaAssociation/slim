@@ -22,7 +22,7 @@ BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(fontconfig)
 BuildRequires:	gettext
 BuildRequires:	pam-devel
-BuildRequires:	pkgconfig(libpng15) >= 1.5
+BuildRequires:	pkgconfig(libpng16) >= 1.6
 BuildRequires:	pkgconfig(zlib)
 %if %mdvver < 201300
 BuildRequires:	consolekit-devel
