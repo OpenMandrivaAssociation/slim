@@ -17,6 +17,7 @@ BuildRequires:	cmake
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xft)
 BuildRequires:	pkgconfig(xrender)
+BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	jpeg-devel
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(fontconfig)
