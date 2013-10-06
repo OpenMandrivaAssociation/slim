@@ -57,10 +57,10 @@ Features included:
 %apply_patches
 
 %build
-%serverbuild_hardened
-export CMAKE_C_FLAGS="%{optflags} -fPIC"
-export CMAKE_CPP_FLAGS="%{optflags} -fPIC"
-export CMAKE_CXX_FLAGS="%{optflags} -fPIC"
+%serverbuild
+export CMAKE_C_FLAGS="%{optflags}"
+export CMAKE_CPP_FLAGS="%{optflags}"
+export CMAKE_CXX_FLAGS="%{optflags}"
 
 %cmake \
     -DUSE_PAM=yes \
