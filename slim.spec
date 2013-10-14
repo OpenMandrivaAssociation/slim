@@ -59,7 +59,6 @@ Features included:
 %apply_patches
 
 %build
-%serverbuild
 export CMAKE_C_FLAGS="%{optflags}"
 export CMAKE_CPP_FLAGS="%{optflags}"
 export CMAKE_CXX_FLAGS="%{optflags}"
