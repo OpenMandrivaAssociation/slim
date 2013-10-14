@@ -1,5 +1,3 @@
-%define _disable_ld_no_undefined 1
-
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.6
