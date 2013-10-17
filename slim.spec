@@ -1,3 +1,6 @@
+%define major 1
+%define libname %mklibname %{name} %{major}
+
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.6
@@ -33,6 +36,7 @@ Requires:	pam >= 0.80
 Requires:	distro-theme
 Provides:	dm
 Requires(post):	rpm-helper
+Requires:	%{libname} = %{EVRD}
 
 %description
 SLiM (Simple Login Manager) is a Desktop-independent graphical 
@@ -51,6 +55,13 @@ Features included:
 * Can load predefined user at startup
 * Configurable welcome / shutdown messages
 * Random theme selection
+
+%package -n %{libname}
+Summary:	Main library for %{name}
+Group:		System/Libraries
+
+%description -n %{libname}
+Main library for %{name}.
 
 %prep
 %setup -q
@@ -107,3 +118,7 @@ popd
 %{_bindir}/slim*
 %{_datadir}/slim/themes/
 %{_mandir}/man1/*
+
+%files -n %{name}
+%{_libdir}/lib*slim.so.%{major}*
+%{_libdir}/lib*slim.so
