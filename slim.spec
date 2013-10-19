@@ -76,7 +76,7 @@ export CMAKE_CXX_FLAGS="%{optflags}"
     -DUSE_PAM=yes \
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_LIBDIR="%{_lib}" \
+    -DCMAKE_INSTALL_LIBDIR:PATH="%{_lib}" \
 %if %mdvver >= 201300
     -DUSE_CONSOLEKIT=no
 %else
