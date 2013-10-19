@@ -12,6 +12,7 @@ Source0:	http://download.berlios.de/slim/%{name}-%{version}.tar.gz
 Source1:	%{name}.pam
 Source2:	25%{name}.conf
 Source3:	slim.logrotate
+Source4:	slim.rpmlintrc
 Source5:	slim-tmpfiles.conf
 Patch1:		%{name}-1.3.3-config.patch
 Patch7:		slim-1.3.6-fix-CMakeLists.patch
