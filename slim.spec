@@ -76,6 +76,7 @@ export CMAKE_CXX_FLAGS="%{optflags}"
     -DUSE_PAM=yes \
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR="%{_lib}" \
 %if %mdvver >= 201300
     -DUSE_CONSOLEKIT=no
 %else
@@ -119,6 +120,6 @@ popd
 %{_datadir}/slim/themes/
 %{_mandir}/man1/*
 
-%files -n %{name}
+%files -n %{libname}
 %{_libdir}/lib*slim.so.%{major}*
 %{_libdir}/lib*slim.so
