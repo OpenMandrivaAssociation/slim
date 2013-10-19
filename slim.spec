@@ -4,7 +4,7 @@
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.6
-Release:	1
+Release:	2
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -105,6 +105,8 @@ install -p -D -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/tmpfiles.d/%{name}.co
 
 popd
 
+rm -rf %{buildroot}%{_libdir}/lib*slim.so
+
 %post
 %tmpfiles_create slim.conf
 
@@ -123,4 +125,3 @@ popd
 
 %files -n %{libname}
 %{_libdir}/lib*slim.so.%{major}*
-%{_libdir}/lib*slim.so
