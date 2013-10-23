@@ -1,5 +1,14 @@
 --- slim-1.3.6/CMakeLists.txt	2013-10-01 22:38:05.000000000 +0000
-+++ slim-1.3.6/CMakeLists.txt.tpg	2013-10-06 12:00:34.614653441 +0000
++++ slim-1.3.6/CMakeLists.txt.tpg	2013-10-19 13:07:27.327227764 +0000
+@@ -24,7 +24,7 @@
+ set(CMAKE_INSTALL_PREFIX "/usr/local" CACHE PATH "Installation Directory")
+ set(PKGDATADIR "${CMAKE_INSTALL_PREFIX}/share/slim")
+ set(SYSCONFDIR "/etc")
+-set(LIBDIR "/lib")
++set(LIBDIR "${CMAKE_INSTALL_LIBDIR}")
+ set(MANDIR "${CMAKE_INSTALL_PREFIX}/share/man")
+ 
+ set(SLIM_DEFINITIONS)
 @@ -119,6 +119,7 @@
  	if(PAM_FOUND)
  		message("\tPAM Found")
@@ -16,12 +25,33 @@
  
  add_definitions(${SLIM_DEFINITIONS})
  
-@@ -178,6 +180,8 @@
+@@ -178,6 +180,9 @@
  )
  
  target_link_libraries(libslim
++    ${X11_X11_LIB}
 +    ${X11_Xft_LIB}
 +    ${X11_Xrandr_LIB}
      ${JPEG_LIBRARIES}
  	${PNG_LIBRARIES}
  )
+@@ -229,8 +234,8 @@
+ 		SOVERSION ${SLIM_VERSION})
+ 
+ 	install(TARGETS libslim
+-		LIBRARY DESTINATION lib
+-		ARCHIVE DESTINATION lib
++		LIBRARY DESTINATION ${LIBDIR}
++		ARCHIVE DESTINATION ${LIBDIR}
+ 	)
+ endif (BUILD_SHARED_LIBS)
+ 
+@@ -241,7 +246,7 @@
+ install(FILES slim.conf DESTINATION ${SYSCONFDIR})
+ # systemd service file
+ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+-	install(FILES slim.service DESTINATION ${LIBDIR}/systemd/system)
++	install(FILES slim.service DESTINATION /lib/systemd/system)
+ endif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+ # themes directory
+ subdirs(themes)

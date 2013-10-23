@@ -1,7 +1,10 @@
+%define major 1
+%define libname %mklibname %{name} %{major}
+
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.6
-Release:	1
+Release:	2
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -9,6 +12,7 @@ Source0:	http://download.berlios.de/slim/%{name}-%{version}.tar.gz
 Source1:	%{name}.pam
 Source2:	25%{name}.conf
 Source3:	slim.logrotate
+Source4:	slim.rpmlintrc
 Source5:	slim-tmpfiles.conf
 Patch1:		%{name}-1.3.3-config.patch
 Patch7:		slim-1.3.6-fix-CMakeLists.patch
@@ -17,6 +21,7 @@ BuildRequires:	cmake
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xft)
 BuildRequires:	pkgconfig(xrender)
+BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	jpeg-devel
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(fontconfig)
@@ -32,6 +37,7 @@ Requires:	pam >= 0.80
 Requires:	distro-theme
 Provides:	dm
 Requires(post):	rpm-helper
+Requires:	%{libname} = %{EVRD}
 
 %description
 SLiM (Simple Login Manager) is a Desktop-independent graphical 
@@ -51,12 +57,18 @@ Features included:
 * Configurable welcome / shutdown messages
 * Random theme selection
 
+%package -n %{libname}
+Summary:	Main library for %{name}
+Group:		System/Libraries
+
+%description -n %{libname}
+Main library for %{name}.
+
 %prep
 %setup -q
 %apply_patches
 
 %build
-%serverbuild_hardened
 export CMAKE_C_FLAGS="%{optflags}"
 export CMAKE_CPP_FLAGS="%{optflags}"
 export CMAKE_CXX_FLAGS="%{optflags}"
@@ -65,6 +77,7 @@ export CMAKE_CXX_FLAGS="%{optflags}"
     -DUSE_PAM=yes \
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR:PATH="%{_lib}" \
 %if %mdvver >= 201300
     -DUSE_CONSOLEKIT=no
 %else
@@ -92,6 +105,8 @@ install -p -D -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/tmpfiles.d/%{name}.co
 
 popd
 
+rm -rf %{buildroot}%{_libdir}/lib*slim.so
+
 %post
 %tmpfiles_create slim.conf
 
@@ -107,3 +122,6 @@ popd
 %{_bindir}/slim*
 %{_datadir}/slim/themes/
 %{_mandir}/man1/*
+
+%files -n %{libname}
+%{_libdir}/lib*slim.so.%{major}*
