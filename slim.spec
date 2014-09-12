@@ -4,7 +4,7 @@
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.6
-Release:	6
+Release:	7
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -29,14 +29,11 @@ BuildRequires:	gettext
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(libpng16) >= 1.6
 BuildRequires:	pkgconfig(zlib)
-%if %mdvver < 201300
-BuildRequires:	consolekit-devel
-%endif
 BuildRequires:	pkgconfig(libsystemd-login)
 Requires:	pam >= 0.80
 Requires:	distro-theme
 Provides:	dm
-Requires(post):	rpm-helper
+Requires(post,postun,preun):	rpm-helper
 Requires:	%{libname} = %{EVRD}
 
 %description
@@ -78,11 +75,7 @@ export CMAKE_CXX_FLAGS="%{optflags}"
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_LIBDIR:PATH="%{_lib}" \
-%if %mdvver >= 201300
     -DUSE_CONSOLEKIT=no
-%else
-    -DUSE_CONSOLEKIT=yes
-%endif
 
 %install
 pushd build
@@ -109,6 +102,13 @@ rm -rf %{buildroot}%{_libdir}/lib*slim.so
 
 %post
 %tmpfiles_create slim.conf
+%systemd_post slim.service
+
+%preun
+%systemd_preun slim.service
+
+%postun
+%systemd_postun
 
 %files
 %doc ChangeLog README THEMES TODO
