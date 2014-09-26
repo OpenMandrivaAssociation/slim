@@ -4,7 +4,7 @@
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.6
-Release:	6.1
+Release:	6.2
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -92,7 +92,7 @@ install -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
 # (tpg) use background distro-theme
 rm -f %{buildroot}%{_datadir}/slim/themes/default/background.jpg
-ln -s ../../../mdk/backgrounds/default.jpg %{buildroot}%{_datadir}/slim/themes/default/background.jpg
+ln -s ../../../mdk/backgrounds/default.png %{buildroot}%{_datadir}/slim/themes/default/background.jpg
 
 install -p -D -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/tmpfiles.d/%{name}.conf
 
