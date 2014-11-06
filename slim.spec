@@ -1,10 +1,7 @@
-%define major 1
-%define libname %mklibname %{name} %{major}
-
 Summary:	Simple login manager
 Name:		slim
 Version:	1.3.6
-Release:	8
+Release:	9
 Group:		System/X11
 License:	GPLv2+
 URL:		http://slim.berlios.de
@@ -17,6 +14,7 @@ Source5:	slim-tmpfiles.conf
 Patch1:		%{name}-1.3.3-config.patch
 Patch7:		slim-1.3.6-fix-CMakeLists.patch
 Patch8:		slim-1.3.5-fix-service-file.patch
+Patch9:		slim-1.3.6-systemd-session.patch
 BuildRequires:	cmake
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xft)
@@ -34,7 +32,7 @@ Requires:	pam >= 0.80
 Requires:	distro-theme
 Provides:	dm
 Requires(post,postun,preun):	rpm-helper
-Requires:	%{libname} = %{EVRD}
+Obsoletes:	%{mklibname slim 1} < 1.3.6-9
 
 %description
 SLiM (Simple Login Manager) is a Desktop-independent graphical 
@@ -54,13 +52,6 @@ Features included:
 * Configurable welcome / shutdown messages
 * Random theme selection
 
-%package -n %{libname}
-Summary:	Main library for %{name}
-Group:		System/Libraries
-
-%description -n %{libname}
-Main library for %{name}.
-
 %prep
 %setup -q
 %apply_patches
@@ -71,6 +62,7 @@ export CMAKE_CPP_FLAGS="%{optflags}"
 export CMAKE_CXX_FLAGS="%{optflags}"
 
 %cmake \
+    -DBUILD_SHARED_LIBS=Off \
     -DUSE_PAM=yes \
     -DCMAKE_SKIP_RPATH=ON \
     -DCMAKE_BUILD_TYPE=Release \
@@ -78,8 +70,7 @@ export CMAKE_CXX_FLAGS="%{optflags}"
     -DUSE_CONSOLEKIT=no
 
 %install
-pushd build
-%makeinstall_std
+%makeinstall_std -C build
 
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d
 install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/pam.d/%{name}
@@ -96,9 +87,6 @@ ln -s ../../../mdk/backgrounds/default.png %{buildroot}%{_datadir}/slim/themes/d
 
 install -p -D -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/tmpfiles.d/%{name}.conf
 
-popd
-
-rm -rf %{buildroot}%{_libdir}/lib*slim.so
 
 %post
 %tmpfiles_create slim.conf
@@ -108,7 +96,7 @@ rm -rf %{buildroot}%{_libdir}/lib*slim.so
 %systemd_preun slim.service
 
 %postun
-%systemd_postun
+%systemd_postun slim.service
 
 %files
 %doc ChangeLog README THEMES TODO
@@ -122,6 +110,3 @@ rm -rf %{buildroot}%{_libdir}/lib*slim.so
 %{_bindir}/slim*
 %{_datadir}/slim/themes/
 %{_mandir}/man1/*
-
-%files -n %{libname}
-%{_libdir}/lib*slim.so.%{major}*
