@@ -57,9 +57,7 @@ Features included:
 %apply_patches
 
 %build
-export CMAKE_C_FLAGS="%{optflags} -I/usr/include/"
-export CMAKE_CPP_FLAGS="%{optflags} -I/usr/include/"
-export CMAKE_CXX_FLAGS="%{optflags} -I/usr/include/"
+%global optflags %{optflags} -I/usr/include
 
 %cmake \
     -DBUILD_SHARED_LIBS=Off \
