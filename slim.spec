@@ -87,7 +87,6 @@ ln -s ../../../mdk/backgrounds/default.png %{buildroot}%{_datadir}/slim/themes/d
 
 install -p -D -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/tmpfiles.d/%{name}.conf
 
-
 %post
 %tmpfiles_create slim.conf
 %systemd_post slim.service
