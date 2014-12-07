@@ -57,7 +57,7 @@ Features included:
 %apply_patches
 
 %build
-%global optflags %{optflags} -I/usr/include
+%global optflags %{optflags} -I/usr/include/freetype2
 
 %cmake \
     -DBUILD_SHARED_LIBS=Off \
