@@ -15,6 +15,7 @@ Patch1:		%{name}-1.3.3-config.patch
 Patch7:		slim-1.3.6-fix-CMakeLists.patch
 Patch8:		slim-1.3.5-fix-service-file.patch
 Patch9:		slim-1.3.6-systemd-session.patch
+Patch10:	clang-build-fixes.patch
 BuildRequires:	cmake
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(xft)
@@ -27,7 +28,7 @@ BuildRequires:	gettext
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(libpng16) >= 1.6
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:	pkgconfig(libsystemd-login)
+BuildRequires:	pkgconfig(libsystemd)
 Requires:	pam >= 0.80
 Requires:	distro-theme
 Provides:	dm
@@ -57,6 +58,8 @@ Features included:
 %apply_patches
 
 %build
+#export CC=gcc
+#export CXX=g++
 %global optflags %{optflags} -I/usr/include/freetype2
 
 %cmake \
