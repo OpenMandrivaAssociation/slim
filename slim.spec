@@ -4,7 +4,7 @@ Version:	1.3.6
 Release:	12
 Group:		System/X11
 License:	GPLv2+
-URL:		http://slim.berlios.de
+URL:		https://slim.berlios.de
 Source0:	http://download.berlios.de/slim/%{name}-%{version}.tar.gz
 Source1:	%{name}.pam
 Source2:	25%{name}.conf
